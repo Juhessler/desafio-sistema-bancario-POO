@@ -3,7 +3,8 @@ from abc import ABC, abstractclassmethod, abstractproperty
 from datetime import datetime
 
 
-class Cliente:
+class cliente :
+
     def __init__(self, endereco):
         self.endereco = endereco
         self.contas = []
@@ -16,6 +17,7 @@ class Cliente:
 
 
 class PessoaFisica(Cliente):
+
     def __init__(self, nome, data_nascimento, cpf, endereco):
         super().__init__(endereco)
         self.nome = nome
@@ -24,6 +26,7 @@ class PessoaFisica(Cliente):
 
 
 class Conta:
+
     def __init__(self, numero, cliente):
         self._saldo = 0
         self._numero = numero
@@ -84,6 +87,7 @@ class Conta:
 
 
 class ContaCorrente(Conta):
+
     def __init__(self, numero, cliente, limite=500, limite_saques=3):
         super().__init__(numero, cliente)
         self._limite = limite
@@ -117,6 +121,7 @@ class ContaCorrente(Conta):
 
 
 class Historico:
+
     def __init__(self):
         self._transacoes = []
 
@@ -135,6 +140,7 @@ class Historico:
 
 
 class Transacao(ABC):
+
     @property
     @abstractproperty
     def valor(self):
@@ -146,6 +152,7 @@ class Transacao(ABC):
 
 
 class Saque(Transacao):
+
     def __init__(self, valor):
         self._valor = valor
 
@@ -161,6 +168,7 @@ class Saque(Transacao):
 
 
 class Deposito(Transacao):
+
     def __init__(self, valor):
         self._valor = valor
 
@@ -176,6 +184,7 @@ class Deposito(Transacao):
 
 
 def menu():
+
     menu = """\n
     ================ MENU ================
     [d]\tDepositar
@@ -190,11 +199,13 @@ def menu():
 
 
 def filtrar_cliente(cpf, clientes):
+
     clientes_filtrados = [cliente for cliente in clientes if cliente.cpf == cpf]
     return clientes_filtrados[0] if clientes_filtrados else None
 
 
 def recuperar_conta_cliente(cliente):
+
     if not cliente.contas:
         print("\n@@@ Cliente não possui conta! @@@")
         return
@@ -204,6 +215,7 @@ def recuperar_conta_cliente(cliente):
 
 
 def depositar(clientes):
+
     cpf = input("Informe o CPF do cliente: ")
     cliente = filtrar_cliente(cpf, clientes)
 
@@ -222,6 +234,7 @@ def depositar(clientes):
 
 
 def sacar(clientes):
+
     cpf = input("Informe o CPF do cliente: ")
     cliente = filtrar_cliente(cpf, clientes)
 
@@ -240,6 +253,7 @@ def sacar(clientes):
 
 
 def exibir_extrato(clientes):
+
     cpf = input("Informe o CPF do cliente: ")
     cliente = filtrar_cliente(cpf, clientes)
 
@@ -267,6 +281,7 @@ def exibir_extrato(clientes):
 
 
 def criar_cliente(clientes):
+
     cpf = input("Informe o CPF (somente número): ")
     cliente = filtrar_cliente(cpf, clientes)
 
@@ -286,6 +301,7 @@ def criar_cliente(clientes):
 
 
 def criar_conta(numero_conta, clientes, contas):
+
     cpf = input("Informe o CPF do cliente: ")
     cliente = filtrar_cliente(cpf, clientes)
 
@@ -301,12 +317,14 @@ def criar_conta(numero_conta, clientes, contas):
 
 
 def listar_contas(contas):
+
     for conta in contas:
         print("=" * 100)
         print(textwrap.dedent(str(conta)))
 
 
 def main():
+
     clientes = []
     contas = []
 
